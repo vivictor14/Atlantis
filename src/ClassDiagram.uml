@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="76.0" y="79.0">Entities.Enemy</node>
+    <node x="79.0" y="0.0">Entities.Entity</node>
+    <node x="-176.0" y="183.0">Interface.Menu</node>
+    <node x="164.0" y="79.0">Entities.Character</node>
+    <node x="0.0" y="153.0">Environment.Background</node>
+    <node x="0.0" y="301.0">Environment.Area</node>
+    <node x="213.0" y="227.0">Environment.Map</node>
+    <node x="0.0" y="79.0">Entities.NPC</node>
+    <node x="101.0" y="301.0">Items.Item</node>
+    <node x="0.0" y="227.0">Environment.Room</node>
+    <node x="267.0" y="153.0">Environment.Platform</node>
+    <node x="109.0" y="227.0">Main</node>
+    <node x="202.0" y="301.0">Skills.Skill</node>
+    <node x="141.0" y="153.0">Entities.Projectile</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Entities.Character" target="Entities.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="205.5" y="54.0" />
+      <point x="130.66666666666669" y="54.0" />
+      <point x="20.666666666666686" y="14.5" />
+    </edge>
+    <edge source="Entities.NPC" target="Entities.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="28.0" y="54.0" />
+      <point x="89.33333333333333" y="54.0" />
+      <point x="-20.66666666666667" y="14.5" />
+    </edge>
+    <edge source="Entities.Enemy" target="Entities.Entity">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="176.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
