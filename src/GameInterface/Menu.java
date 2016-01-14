@@ -1,4 +1,4 @@
-package Interface;
+package GameInterface;
 
 /**
  * A menu

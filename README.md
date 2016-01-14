@@ -9,6 +9,6 @@ Règles d'écriture :
   - Toute méthode ou classe créée doit être commentée de manière à pouvoir générer la doc (/** + enter avant la classe ou méthode)
   - Code commenté dans la mesure du possible
   - Eviter les lignes vides à outrance dans le même bloc de code
-  - Ne pas utiliser de nombre en plein milieu du code. Se servir du package GameConstants
+  - Ne pas utiliser de nombre en plein milieu du code. Se servir du package Constants
   - Ne pas laisser traîner une erreur en se disant qu'elle arrive rarement ou qu'on la résoudra plus tard
   - Ne modifier que les classes qui nous sont assignées. Sinon, demander la permission à la personne qui s'occupe de la classe
