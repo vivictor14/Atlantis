@@ -1,8 +1,6 @@
 package GameInterface;
 
 import Enumerations.ButtonTypes;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -30,7 +28,7 @@ public class Button {
         this.width = width;
         this.height = height;
         setClickEvent(type);
-        setImages(context);
+        setImages(type, context);
         imageView = new ImageView(images[0]);
         setEvents();
     }
@@ -57,14 +55,15 @@ public class Button {
     }
 
     /**
-     * Set the images of the button depending on the context
+     * Set the images of the button depending on the context and the type of the button
+     * @param type The type of the button
      * @param context The context
      */
-    private void setImages(String context) {
+    private void setImages(ButtonTypes type, String context) {
         images = new Image[2];
-        images[0] = new Image(IMAGE_PATH + context + BUTTON_SLEEP);
-        images[1] = new Image(IMAGE_PATH + context + BUTTON_HOVER);
-        images[2] = new Image(IMAGE_PATH + context + BUTTON_ACTIVE);
+        images[0] = new Image(IMAGE_PATH + context + type + BUTTON_SLEEP);
+        images[1] = new Image(IMAGE_PATH + context + type + BUTTON_HOVER);
+        images[2] = new Image(IMAGE_PATH + context + type + BUTTON_ACTIVE);
     }
 
     /**
