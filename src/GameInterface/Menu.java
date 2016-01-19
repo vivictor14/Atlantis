@@ -29,6 +29,7 @@ public class Menu {
     public Menu(ArrayList<ButtonTypes> buttonsToCreate, MenuTypes type, Game game) {
         this.type = type;
         group = new Group();
+        buttons = new ArrayList<>();
         String path = IMAGE_PATH + type.toString() + MENU;
         imageView = new ImageView(new Image(path));
         group.getChildren().add(imageView);
@@ -64,10 +65,10 @@ public class Menu {
             case Pause:
                 break;
         }
-        /*for(ButtonTypes buttonToCreate : buttonsToCreate) {
-            Button button = new Button(x, y, width, height, type.toString(), buttonToCreate, game)
-            group.getChildren().add(button.imageView);
+        for(ButtonTypes buttonToCreate : buttonsToCreate) {
+            Button button = new Button(x, y, width, height, type.toString(), buttonToCreate, game);
             buttons.add(button);
-        }*/
+            group.getChildren().add(button.imageView);
+        }
     }
 }

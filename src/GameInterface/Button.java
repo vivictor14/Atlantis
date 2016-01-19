@@ -4,7 +4,9 @@ import Core.Game;
 import Enumerations.ButtonTypes;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.controlsfx.dialog.ExceptionDialog;
 
+import static Constants.Display.GAME_NAME;
 import static Constants.Paths.*;
 
 /**
@@ -62,9 +64,27 @@ public class Button {
      */
     private void setImages(ButtonTypes type, String context) {
         images = new Image[2];
-        images[0] = new Image(IMAGE_PATH + context + type + BUTTON_SLEEP);
-        images[1] = new Image(IMAGE_PATH + context + type + BUTTON_HOVER);
-        images[2] = new Image(IMAGE_PATH + context + type + BUTTON_ACTIVE);
+        String path = "";
+        for (int i = 0; i < images.length; i++) {
+            switch(i) {
+                case 0:
+                    path = IMAGE_PATH + context + type + BUTTON_SLEEP;
+                    break;
+                case 1:
+                    path = IMAGE_PATH + context + type + BUTTON_HOVER;
+                    break;
+                case 2:
+                    path = IMAGE_PATH + context + type + BUTTON_ACTIVE;
+                    break;
+            }
+            images[i] = new Image(path);
+            if(images[i].isError()) {
+                ExceptionDialog exceptionDialog = new ExceptionDialog(new Exception("Le fichier " + path + " est manquant."));
+                exceptionDialog.setHeaderText("Un fichier est manquant");
+                exceptionDialog.setTitle(GAME_NAME);
+                exceptionDialog.show();
+            }
+        }
     }
 
     /**
