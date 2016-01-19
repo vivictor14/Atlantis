@@ -1,5 +1,6 @@
 package GameInterface;
 
+import Core.Game;
 import Enumerations.ButtonTypes;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,12 +23,12 @@ public class Button {
 
     // Constructors
 
-    public Button(double posX, double posY, double width, double height, String context, ButtonTypes type) {
+    public Button(double posX, double posY, double width, double height, String context, ButtonTypes type, Game game) {
         this.posX = posX;
         this.posY = posY;
         this.width = width;
         this.height = height;
-        setClickEvent(type);
+        setClickEvent(type, game);
         setImages(type, context);
         imageView = new ImageView(images[0]);
         setEvents();
@@ -39,15 +40,15 @@ public class Button {
      *  Set the events of the button depending on the type of the button
      * @param type The type of the button
      */
-    private void setClickEvent(ButtonTypes type) {
+    private void setClickEvent(ButtonTypes type, Game game) {
         switch(type) {
-            case Quitter:
+            case Exit:
                 break;
-            case Sauvegarder:
+            case Save:
                 break;
-            case Charger:
+            case Load:
                 break;
-            case Commencer:
+            case New_Game:
                 break;
             case Options:
                 break;

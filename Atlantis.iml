@@ -7,6 +7,18 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Program Files/Java/ControlsFX/controlsfx-8.40.10.jar!/" />
+          <root url="jar://C:/Program Files/Java/ControlsFX/controlsfx-samples-8.40.10.jar!/" />
+          <root url="jar://C:/Program Files/Java/ControlsFX/fxsampler-1.0.9.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://C:/Program Files/Java/ControlsFX/controlsfx-samples-8.40.10.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
-
