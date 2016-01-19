@@ -51,6 +51,7 @@ public class Menu {
      * Create the buttons by using the menu type and the buttons types
      * @param buttonsToCreate The buttons types
      * @param type The menu type
+     * @param game The game
      */
     private void createButtons(ArrayList<ButtonTypes> buttonsToCreate, MenuTypes type, Game game) {
         double x = 0;

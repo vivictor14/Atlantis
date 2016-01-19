@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.controlsfx.dialog.ExceptionDialog;
 
-import static Constants.Display.GAME_NAME;
+import static Constants.Display.*;
 import static Constants.Paths.*;
 
 /**
@@ -41,6 +41,7 @@ public class Button {
     /**
      *  Set the events of the button depending on the type of the button
      * @param type The type of the button
+     * @param game The game
      */
     private void setClickEvent(ButtonTypes type, Game game) {
         switch(type) {

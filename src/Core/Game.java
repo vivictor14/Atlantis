@@ -38,6 +38,10 @@ public class Game {
 
     // Methods
 
+    /**
+     * Initialize the primary stage
+     * @param primaryStage The primary stage
+     */
     private void initPrimaryStage(Stage primaryStage) {
         primaryStage.setTitle(GAME_NAME);
         primaryStage.setScene(scene);
@@ -46,6 +50,9 @@ public class Game {
         primaryStage.show();
     }
 
+    /**
+     * Initialize the main menu
+     */
     private void initMainMenu() {
         ArrayList<ButtonTypes> buttonsToCreate = new ArrayList<>(Arrays.asList(New_Game, Load, Options, Exit));
         mainMenu = new Menu(buttonsToCreate, Main, this);
