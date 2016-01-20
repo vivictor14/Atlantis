@@ -8,6 +8,8 @@ public final class Display {
     public static final int WINDOW_HEIGHT = 600;
     public static final String GAME_NAME = "Atlantis (nom provisoire)";
 
+    public static final int DEFAULT_BUTTON_BORDER_THICKNESS = 2;
+
     public static final double MAIN_BUTTON_WIDTH = 200;
     public static final double MAIN_BUTTON_HEIGHT = 50;
     public static final double MAIN_BUTTON_X_POS = 0;

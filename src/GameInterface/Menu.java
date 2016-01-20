@@ -6,6 +6,9 @@ import Enumerations.MenuTypes;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import org.controlsfx.dialog.ExceptionDialog;
 import java.util.ArrayList;
 

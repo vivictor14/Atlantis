@@ -27,6 +27,7 @@ public class Button {
     double posY;
     double width;
     double height;
+    ButtonTypes type;
     Image[] images;
     ImageView imageView;
 
@@ -37,7 +38,8 @@ public class Button {
         this.posY = posY;
         this.width = width;
         this.height = height;
-        setClickEvent(type, game);
+        this.type = type;
+        setClickEvent(game);
         setImages(type, context);
         imageView = new ImageView(images[0]);
         imageView.setX(posX);
@@ -49,10 +51,9 @@ public class Button {
 
     /**
      *  Set the events of the button depending on the type of the button
-     * @param type The type of the button
      * @param game The game
      */
-    private void setClickEvent(ButtonTypes type, Game game) {
+    private void setClickEvent(Game game) {
         switch(type) {
             case Exit:
                 break;
@@ -89,23 +90,6 @@ public class Button {
             }
             images[i] = new Image(path);
             if(images[i].isError()) {
-                Group group = new Group();
-                Rectangle rectangle = new Rectangle();
-                rectangle.setWidth(width);
-                rectangle.setHeight(height);
-                rectangle.setFill(Color.BLACK);
-                group.getChildren().add(rectangle);
-                rectangle = new Rectangle();
-                rectangle.setWidth(width - 2);
-                rectangle.setHeight(height - 2);
-                rectangle.setX(1);
-                rectangle.setY(1);
-                rectangle.setFill(Color.WHITE);
-                group.getChildren().add(rectangle);
-                Text text = new Text(type.toString());
-                text.setFont(new Font(12));
-                group.getChildren().add(text);
-                images[i] = group.snapshot(null, new WritableImage((int)width, (int)height));
                 ExceptionDialog exceptionDialog = new ExceptionDialog(new Exception("Le fichier " + path + " est manquant."));
                 exceptionDialog.setHeaderText("Un fichier est manquant");
                 exceptionDialog.setTitle(GAME_NAME);
