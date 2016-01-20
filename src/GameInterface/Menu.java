@@ -60,6 +60,10 @@ public class Menu {
         double height = 0;
         switch(type) {
             case Main:
+                width = MAIN_BUTTON_WIDTH;
+                height = MAIN_BUTTON_HEIGHT;
+                x = MAIN_BUTTON_X_POS;
+                y = MAIN_BUTTON_Y_POS;
                 break;
             case Options:
                 break;

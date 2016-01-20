@@ -2,8 +2,15 @@ package GameInterface;
 
 import Core.Game;
 import Enumerations.ButtonTypes;
+import javafx.scene.Group;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import org.controlsfx.dialog.ExceptionDialog;
 
 import static Constants.Display.*;
@@ -33,6 +40,8 @@ public class Button {
         setClickEvent(type, game);
         setImages(type, context);
         imageView = new ImageView(images[0]);
+        imageView.setX(posX);
+        imageView.setY(posY);
         setEvents();
     }
 
@@ -80,6 +89,23 @@ public class Button {
             }
             images[i] = new Image(path);
             if(images[i].isError()) {
+                Group group = new Group();
+                Rectangle rectangle = new Rectangle();
+                rectangle.setWidth(width);
+                rectangle.setHeight(height);
+                rectangle.setFill(Color.BLACK);
+                group.getChildren().add(rectangle);
+                rectangle = new Rectangle();
+                rectangle.setWidth(width - 2);
+                rectangle.setHeight(height - 2);
+                rectangle.setX(1);
+                rectangle.setY(1);
+                rectangle.setFill(Color.WHITE);
+                group.getChildren().add(rectangle);
+                Text text = new Text(type.toString());
+                text.setFont(new Font(12));
+                group.getChildren().add(text);
+                images[i] = group.snapshot(null, new WritableImage((int)width, (int)height));
                 ExceptionDialog exceptionDialog = new ExceptionDialog(new Exception("Le fichier " + path + " est manquant."));
                 exceptionDialog.setHeaderText("Un fichier est manquant");
                 exceptionDialog.setTitle(GAME_NAME);
