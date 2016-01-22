@@ -64,14 +64,23 @@ public class Game {
         mainMenu = new Menu(buttonsToCreate, Main, this);
     }
 
+    /**
+     * Launch a new game
+     */
     public void newGame() {
 
     }
 
+    /**
+     * Save the game
+     */
     public void saveGame() {
 
     }
 
+    /**
+     * Load a save
+     */
     public void loadGame() {
 
     }
