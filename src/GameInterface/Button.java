@@ -21,6 +21,7 @@ public class Button {
     ButtonTypes type;
     Image[] images;
     ImageView imageView;
+    boolean clicked = false;
 
     // Constructors
 
@@ -28,12 +29,11 @@ public class Button {
         this.posX = posX;
         this.posY = posY;
         this.type = type;
-        setClickEvent(game);
         setImages(type, context);
         imageView = new ImageView(images[0]);
         imageView.setX(posX);
         imageView.setY(posY);
-        setEvents();
+        setEvents(game);
     }
 
     // Methods
@@ -45,14 +45,19 @@ public class Button {
     private void setClickEvent(Game game) {
         switch(type) {
             case Exit:
+                imageView.setOnMouseReleased(mouseEvent -> System.exit(0));
                 break;
             case Save:
+                imageView.setOnMouseReleased(mouseEvent -> game.saveGame());
                 break;
             case Load:
+                imageView.setOnMouseReleased(mouseEvent -> game.loadGame());
                 break;
             case NewGame:
+                imageView.setOnMouseReleased(mouseEvent -> game.newGame());
                 break;
             case Options:
+                imageView.setOnMouseReleased(mouseEvent -> System.exit(0));
                 break;
         }
     }
@@ -63,7 +68,7 @@ public class Button {
      * @param context The context
      */
     private void setImages(ButtonTypes type, String context) {
-        images = new Image[2];
+        images = new Image[3];
         String path = "";
         for (int i = 0; i < images.length; i++) {
             switch(i) {
@@ -90,9 +95,10 @@ public class Button {
     /**
      * Set the mouse events
      */
-    private void setEvents() {
+    private void setEvents(Game game) {
         imageView.setOnMouseEntered(mouseEvent -> imageView.setImage(images[1]));
         imageView.setOnMouseExited(mouseEvent -> imageView.setImage(images[0]));
         imageView.setOnMouseClicked(mouseEvent -> imageView.setImage(images[2]));
+        setClickEvent(game);
     }
 }

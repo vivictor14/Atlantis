@@ -63,4 +63,16 @@ public class Game {
         ArrayList<ButtonTypes> buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Load, Options, Exit));
         mainMenu = new Menu(buttonsToCreate, Main, this);
     }
+
+    public void newGame() {
+
+    }
+
+    public void saveGame() {
+
+    }
+
+    public void loadGame() {
+
+    }
 }
