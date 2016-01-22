@@ -2,15 +2,8 @@ package GameInterface;
 
 import Core.Game;
 import Enumerations.ButtonTypes;
-import javafx.scene.Group;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import org.controlsfx.dialog.ExceptionDialog;
 
 import static Constants.Display.*;
@@ -25,19 +18,15 @@ public class Button {
 
     double posX;
     double posY;
-    double width;
-    double height;
     ButtonTypes type;
     Image[] images;
     ImageView imageView;
 
     // Constructors
 
-    public Button(double posX, double posY, double width, double height, String context, ButtonTypes type, Game game) {
+    public Button(double posX, double posY, String context, ButtonTypes type, Game game) {
         this.posX = posX;
         this.posY = posY;
-        this.width = width;
-        this.height = height;
         this.type = type;
         setClickEvent(game);
         setImages(type, context);
@@ -61,7 +50,7 @@ public class Button {
                 break;
             case Load:
                 break;
-            case New_Game:
+            case NewGame:
                 break;
             case Options:
                 break;

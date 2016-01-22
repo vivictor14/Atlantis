@@ -59,12 +59,9 @@ public class Menu {
     private void createButtons(ArrayList<ButtonTypes> buttonsToCreate, MenuTypes type, Game game) {
         double x = 0;
         double y = 0;
-        double width = 0;
-        double height = 0;
+        int i = 0;
         switch(type) {
             case Main:
-                width = MAIN_BUTTON_WIDTH;
-                height = MAIN_BUTTON_HEIGHT;
                 x = MAIN_BUTTON_X_POS;
                 y = MAIN_BUTTON_Y_POS;
                 break;
@@ -74,9 +71,10 @@ public class Menu {
                 break;
         }
         for(ButtonTypes buttonToCreate : buttonsToCreate) {
-            Button button = new Button(x, y, width, height, type.toString(), buttonToCreate, game);
+            Button button = new Button(x + i * MAIN_BUTTON_X_SPACING, y + i * MAIN_BUTTON_Y_SPACING, type.toString(), buttonToCreate, game);
             buttons.add(button);
             group.getChildren().add(button.imageView);
+            i++;
         }
     }
 }

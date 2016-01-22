@@ -7,6 +7,6 @@ public enum ButtonTypes {
     Exit,
     Save,
     Load,
-    New_Game,
+    NewGame,
     Options
 }

@@ -32,8 +32,14 @@ public class Game {
         initPrimaryStage(primaryStage);
         initMainMenu();
         root.getChildren().add(mainMenu.getGroup());
-        //scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> modele.redimensionner());
-        //scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> modele.redimensionner());
+        scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> {
+            root.setScaleX((double) newSceneWidth / WINDOW_WIDTH);
+            root.setTranslateX(((double)newSceneWidth - WINDOW_WIDTH) / 2);
+        });
+        scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> {
+            root.setScaleY((double)newSceneHeight / WINDOW_HEIGHT);
+            root.setTranslateY(((double) newSceneHeight - WINDOW_HEIGHT) / 2);
+        });
     }
 
     // Methods
@@ -45,7 +51,7 @@ public class Game {
     private void initPrimaryStage(Stage primaryStage) {
         primaryStage.setTitle(GAME_NAME);
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
@@ -54,7 +60,7 @@ public class Game {
      * Initialize the main menu
      */
     private void initMainMenu() {
-        ArrayList<ButtonTypes> buttonsToCreate = new ArrayList<>(Arrays.asList(New_Game, Load, Options, Exit));
+        ArrayList<ButtonTypes> buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Load, Options, Exit));
         mainMenu = new Menu(buttonsToCreate, Main, this);
     }
 }
