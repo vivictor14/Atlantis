@@ -1,6 +1,7 @@
 package Core;
 
 import Enumerations.ButtonTypes;
+import Environment.Map;
 import GameInterface.Menu;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -8,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.controlsfx.dialog.ExceptionDialog;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +28,7 @@ public class Game implements java.io.Serializable {
     transient Group root;
     transient Scene scene;
     transient Menu mainMenu;
+    Map map;
 
     // Constructors
 
@@ -84,12 +85,13 @@ public class Game implements java.io.Serializable {
      */
     private void initMainMenu() {
         ArrayList<ButtonTypes> buttonsToCreate;
-        if(new File("save.ser").exists()) {
+        /*if(new File("save.ser").exists()) {
             buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Continue, Options, Exit));
         }
         else {
             buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Options, Exit));
-        }
+        }*/
+        buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Save, Continue, Options, Exit));
         mainMenu = new Menu(buttonsToCreate, Main, this);
     }
 
@@ -105,7 +107,6 @@ public class Game implements java.io.Serializable {
      * Launch a new game
      */
     public void newGame() {
-
     }
 
     /**
@@ -114,8 +115,8 @@ public class Game implements java.io.Serializable {
     public void saveGame() {
         ObjectOutputStream oos = null;
         try {
-            final FileOutputStream fichier = new FileOutputStream("save.ser");
-            oos = new ObjectOutputStream(fichier);
+            final FileOutputStream file = new FileOutputStream("save.ser");
+            oos = new ObjectOutputStream(file);
             oos.writeObject(this);
             oos.flush();
         } catch (final java.io.IOException e) {
@@ -139,8 +140,8 @@ public class Game implements java.io.Serializable {
         ObjectInputStream ois = null;
         Game loadedGame = null;
         try {
-            final FileInputStream fichier = new FileInputStream("save.ser");
-            ois = new ObjectInputStream(fichier);
+            final FileInputStream file = new FileInputStream("save.ser");
+            ois = new ObjectInputStream(file);
             loadedGame = (Game) ois.readObject();
         } catch (final java.io.IOException e) {
             ExceptionDialog exceptionDialog = new ExceptionDialog(e);
@@ -158,18 +159,6 @@ public class Game implements java.io.Serializable {
                 ex.printStackTrace();
             }
         }
-
-    }
-
-    /**
-     * Read an object from the input stream
-     * @param inputStream The input stream
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    private void readObject(ObjectInputStream inputStream)
-            throws IOException, ClassNotFoundException
-    {
-        inputStream.defaultReadObject();
+        map = loadedGame.map;
     }
 }
