@@ -1,10 +1,8 @@
 package Environment;
 
-import Enumerations.AreasName;
+import Enumerations.AreaNames;
 
 import java.awt.geom.Point2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,16 +30,18 @@ public class Map implements java.io.Serializable {
      * Generate the map
      */
     private void generateMap() {
-        for(AreasName areasName : AreasName.values()) {
-            generateArea(areasName);
+        for(AreaNames areaName : AreaNames.values()) {
+            Area area = new Area(areaName);
+            generateArea(area);
+            areas.add(area);
         }
     }
 
     /**
      * Generate an area
-     * @param areasName The name of the area
+     * @param area The area to generate
      */
-    private void generateArea(AreasName areasName) {
-
+    private void generateArea(Area area) {
+        area.rooms.add(new Room());
     }
 }
