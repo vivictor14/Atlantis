@@ -83,7 +83,13 @@ public class Game implements java.io.Serializable {
      * Initialize the main menu
      */
     private void initMainMenu() {
-        ArrayList<ButtonTypes> buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Save, Load, Options, Exit));
+        ArrayList<ButtonTypes> buttonsToCreate;
+        if(new File("save.ser").exists()) {
+            buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Continue, Options, Exit));
+        }
+        else {
+            buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Options, Exit));
+        }
         mainMenu = new Menu(buttonsToCreate, Main, this);
     }
 

@@ -50,6 +50,7 @@ public class Button {
             case Save:
                 imageView.setOnMouseReleased(mouseEvent -> game.saveGame());
                 break;
+            case Continue:
             case Load:
                 imageView.setOnMouseReleased(mouseEvent -> game.loadGame());
                 break;

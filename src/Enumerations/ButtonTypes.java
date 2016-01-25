@@ -6,6 +6,7 @@ package Enumerations;
 public enum ButtonTypes {
     Exit,
     Save,
+    Continue,
     Load,
     NewGame,
     Options
