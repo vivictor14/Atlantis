@@ -156,10 +156,10 @@ public class Game implements java.io.Serializable {
     }
 
     /**
-     * Override the readObject method for the deserialization
+     * Read an object from the input stream
      * @param inputStream The input stream
-     * @throws IOException An IOException
-     * @throws ClassNotFoundException A ClassNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     private void readObject(ObjectInputStream inputStream)
             throws IOException, ClassNotFoundException
