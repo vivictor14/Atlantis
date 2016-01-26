@@ -76,7 +76,7 @@ public class Game implements java.io.Serializable {
         primaryStage.setTitle(GAME_NAME);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
@@ -85,13 +85,12 @@ public class Game implements java.io.Serializable {
      */
     private void initMainMenu() {
         ArrayList<ButtonTypes> buttonsToCreate;
-        /*if(new File("save.ser").exists()) {
+        if(new File("save.ser").exists()) {
             buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Continue, Options, Exit));
         }
         else {
             buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Options, Exit));
-        }*/
-        buttonsToCreate = new ArrayList<>(Arrays.asList(NewGame, Save, Continue, Options, Exit));
+        }
         mainMenu = new Menu(buttonsToCreate, Main, this);
     }
 
@@ -107,6 +106,8 @@ public class Game implements java.io.Serializable {
      * Launch a new game
      */
     public void newGame() {
+        Test test = new Test();
+        show(test.group);
     }
 
     /**
