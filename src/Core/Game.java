@@ -6,6 +6,7 @@ import GameInterface.Menu;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.controlsfx.dialog.ExceptionDialog;
@@ -107,6 +108,7 @@ public class Game implements java.io.Serializable {
      */
     public void newGame() {
         Test test = new Test();
+        root.getChildren().clear();
         show(test.group);
     }
 
