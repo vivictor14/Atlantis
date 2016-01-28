@@ -3,6 +3,7 @@ package Core;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
@@ -27,7 +28,7 @@ public class Test {
         polyline.getPoints().addAll(terrainContour);
         for(int i = terrainContour.size() - 1; i >= 0; i-=2) {
             polyline1.getPoints().add(terrainContour.get(i - 1));
-            polyline1.getPoints().add(terrainContour.get(i) + 20);
+            polyline1.getPoints().add(terrainContour.get(i));
         }
 
         Polygon polygon = new Polygon();
@@ -41,11 +42,24 @@ public class Test {
 
         Polygon polygon1 = new Polygon();
         polygon1.getPoints().addAll(polyline.getPoints());
+        for(int i = 1; i <= polyline1.getPoints().size(); i+=2) {
+            polyline1.getPoints().set(i, polyline1.getPoints().get(i) + 20);
+        }
         polygon1.getPoints().addAll(polyline1.getPoints());
-        polygon1.setFill(new ImagePattern(new Image(IMAGE_PATH + "Marbre - bordures.png"), 0.0, 0.0, 18.0, 18.0, false));
+        polygon1.setFill(Color.GREY);
 
+        Polygon polygon2 = new Polygon();
+        for(int i = 1; i <= polyline.getPoints().size(); i+=2) {
+            polyline.getPoints().set(i, polyline.getPoints().get(i) + 5);
+        }
+        polygon2.getPoints().addAll(polyline.getPoints());
+        for(int i = 1; i <= polyline1.getPoints().size(); i+=2) {
+            polyline1.getPoints().set(i, polyline1.getPoints().get(i) - 5);
+        }
+        polygon2.getPoints().addAll(polyline1.getPoints());
+        polygon2.setFill(Color.CYAN);
 
-        group.getChildren().addAll(polygon, polygon1);
+        group.getChildren().addAll(polygon, polygon1, polygon2);
     }
 
 
