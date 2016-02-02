@@ -21,12 +21,11 @@ public class Foreground {
     // Fields
 
     ArrayList<Double[]> elementsCoordinates;
-    Group group;
+    transient Group group;
 
     // Constructors
 
     public Foreground(ArrayList<Double[]> elementsToContinueCoordinates, TerrainTypes terrainType) {
-        group = new Group();
         elementsCoordinates = new ArrayList<>();
 
         switch(terrainType) {
@@ -39,10 +38,20 @@ public class Foreground {
         elementsToContinueCoordinates.stream().forEach(element -> elementsCoordinates.add(generateForegroundElement(element, 50)));
         elementsCoordinates.add(generateForegroundElement(50));
 
-        elementsCoordinates.stream().forEach(this::generatePolygon);
+        generateGroup();
     }
 
     // Methods
+
+    public Group getGroup() { return group; }
+
+    public void generateGroup() {
+        group = new Group();
+        ArrayList<Polygon> polygons = new ArrayList<>();
+        elementsCoordinates.stream().forEach(element -> polygons.add(generatePolygon(element)));
+        mergePolygons(polygons);
+        polygons.stream().forEach(element -> group.getChildren().addAll(element, generateBorder(element)));
+    }
 
     /**
      * Generate a foreground element
@@ -117,7 +126,7 @@ public class Foreground {
      * Generate a polygon with the given coordinates
      * @param elementCoordinates The coordinates of the polygon to generate
      */
-    private void generatePolygon(Double[] elementCoordinates) {
+    private Polygon generatePolygon(Double[] elementCoordinates) {
         Polyline externalBorder = new Polyline();
         externalBorder.getPoints().addAll(elementCoordinates);
         Polyline internalBorder = transformPolyline(externalBorder);
@@ -135,7 +144,8 @@ public class Foreground {
         border.getPoints().addAll(internalBorder.getPoints());
         border.setFill(Color.GREY);
 
-        group.getChildren().addAll(element, border);
+        return element;
+        //group.getChildren().addAll(element, border);
     }
 
     /**
@@ -154,5 +164,21 @@ public class Foreground {
         return transformedPolyline;
     }
 
-    public Group getGroup() { return group; }
+    /**
+     * Merge the overlapping polygons
+     * @param polygons The polygons
+     */
+    private void mergePolygons(ArrayList<Polygon> polygons) {
+
+    }
+
+    /**
+     * Generate the border of a polygon
+     * @param polygon The polygon
+     * @return The border
+     */
+    private Polygon generateBorder(Polygon polygon) {
+        Polygon border = new Polygon();
+        return border;
+    }
 }
