@@ -1,5 +1,6 @@
 package Core;
 
+import Enumerations.TerrainTypes;
 import Environment.Foreground;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Group;
@@ -22,7 +23,7 @@ public class Test {
 
     public Test() {
         group = new Group();
-        Foreground foreground = new Foreground();
+        Foreground foreground = new Foreground(null, TerrainTypes.Natural);
         group.getChildren().add(foreground.getGroup());
     }
 }

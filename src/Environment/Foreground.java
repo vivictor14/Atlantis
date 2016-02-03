@@ -1,6 +1,7 @@
 package Environment;
 
 import Enumerations.TerrainTypes;
+import com.sun.istack.internal.Nullable;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -9,9 +10,9 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
 import java.util.ArrayList;
 
-import static Constants.Display.WINDOW_HEIGHT;
-import static Constants.Display.WINDOW_WIDTH;
-import static Constants.Paths.IMAGE_PATH;
+import static Constants.Display.*;
+import static Constants.Paths.*;
+import static Constants.Map.*;
 
 /**
  * A physic foreground
@@ -25,18 +26,28 @@ public class Foreground {
 
     // Constructors
 
-    public Foreground(ArrayList<Double[]> elementsToContinueCoordinates, TerrainTypes terrainType) {
+    public Foreground(@Nullable ArrayList<Double[]> elementsToContinueCoordinates, TerrainTypes terrainType) {
         elementsCoordinates = new ArrayList<>();
 
+        double peakHeight = 0;
+        double flatness = 0;
+        int length = 0;
         switch(terrainType) {
             case Flat:
                 break;
             case Natural:
+                peakHeight = 50;
+                flatness = 200;
+                length = 1000;
                 break;
         }
 
-        elementsToContinueCoordinates.stream().forEach(element -> elementsCoordinates.add(generateForegroundElement(element, 50)));
-        elementsCoordinates.add(generateForegroundElement(50));
+        if(elementsToContinueCoordinates != null) {
+            for (Double[] elementToContinueCoordinates : elementsToContinueCoordinates) {
+                elementsCoordinates.add(generateForegroundElement(elementToContinueCoordinates, peakHeight, flatness, length));
+            }
+        }
+        elementsCoordinates.add(generateForegroundElement(peakHeight, flatness, length));
 
         generateGroup();
     }
@@ -50,30 +61,29 @@ public class Foreground {
         ArrayList<Polygon> polygons = new ArrayList<>();
         elementsCoordinates.stream().forEach(element -> polygons.add(generatePolygon(element)));
         mergePolygons(polygons);
-        polygons.stream().forEach(element -> group.getChildren().addAll(element, generateBorder(element)));
+        int index = 0;
+        for(Polygon element : polygons) {
+            group.getChildren().addAll(element, generateBorder(index));
+            index++;
+        }
+        //polygons.stream().forEach(element -> group.getChildren().addAll(element, generateBorder(element)));
     }
 
-    /**
-     * Generate a foreground element
-     * @param nbPoints The number of points (level of detail)
-     * @return An array of the elements coordinates
-     */
-    private Double[] generateForegroundElement(int nbPoints)
+
+    private Double[] generateForegroundElement(double peakHeight, double flatness, int length)
     {
-        Double[] elementCoordinates = new Double[nbPoints * 2];
+        Double[] elementCoordinates = new Double[(int)(LEVEL_OF_DETAIL * length * 2)];
 
         double rand1 = Math.random() + 1;
         double rand2 = Math.random() + 2;
         double rand3 = Math.random() + 3;
 
         double offset = WINDOW_HEIGHT / 2;
-        double peakHeight = 50;
-        double flatness = 200;
         double x = 0;
-        double increment = WINDOW_WIDTH / (nbPoints - 1);
+        double increment = 1 / LEVEL_OF_DETAIL;
         int index = 0;
 
-        for (int i = 0; i < nbPoints; i++)
+        for (int i = 0; i < LEVEL_OF_DETAIL * length; i++)
         {
             double height = peakHeight / rand1 * Math.sin(x / flatness * rand1 + rand1);
             height += peakHeight / rand2 * Math.sin(x / flatness * rand2 + rand2);
@@ -87,28 +97,21 @@ public class Foreground {
         return elementCoordinates;
     }
 
-    /**
-     * Generate a foreground element
-     * @param elementToContinueCoordinates The coordinates of the elements that must be continued
-     * @param nbPoints The number of points (level of detail)
-     * @return An array of the elements coordinates
-     */
-    private Double[] generateForegroundElement(Double[] elementToContinueCoordinates, int nbPoints)
+
+    private Double[] generateForegroundElement(Double[] elementToContinueCoordinates, double peakHeight, double flatness, int length)
     {
-        Double[] elementCoordinates = new Double[nbPoints * 2];
+        Double[] elementCoordinates = new Double[(int)(LEVEL_OF_DETAIL * length * 2)];
 
         double rand1 = Math.random() + 1;
         double rand2 = Math.random() + 2;
         double rand3 = Math.random() + 3;
 
         double offset = WINDOW_HEIGHT / 2;
-        double peakHeight = 50;
-        double flatness = 200;
         double x = 0;
-        double increment = WINDOW_WIDTH / (nbPoints - 1);
+        double increment = 1 / LEVEL_OF_DETAIL;
         int index = 0;
 
-        for (int i = 0; i < nbPoints; i++)
+        for (int i = 0; i < LEVEL_OF_DETAIL * length; i++)
         {
             double height = peakHeight / rand1 * Math.sin(x / flatness * rand1 + rand1);
             height += peakHeight / rand2 * Math.sin(x / flatness * rand2 + rand2);
@@ -129,7 +132,6 @@ public class Foreground {
     private Polygon generatePolygon(Double[] elementCoordinates) {
         Polyline externalBorder = new Polyline();
         externalBorder.getPoints().addAll(elementCoordinates);
-        Polyline internalBorder = transformPolyline(externalBorder);
 
         Polygon element = new Polygon();
         element.getPoints().addAll(externalBorder.getPoints());
@@ -139,13 +141,7 @@ public class Foreground {
         );
         element.setFill(new ImagePattern(new Image(IMAGE_PATH + "Marbre.png"), 0.0, 0.0, 64.0, 64.0, false));
 
-        Polygon border = new Polygon();
-        border.getPoints().addAll(externalBorder.getPoints());
-        border.getPoints().addAll(internalBorder.getPoints());
-        border.setFill(Color.GREY);
-
         return element;
-        //group.getChildren().addAll(element, border);
     }
 
     /**
@@ -174,11 +170,17 @@ public class Foreground {
 
     /**
      * Generate the border of a polygon
-     * @param polygon The polygon
+     * @param index The index of the polygon coordinates
      * @return The border
      */
-    private Polygon generateBorder(Polygon polygon) {
+    private Polygon generateBorder(int index) {
         Polygon border = new Polygon();
+        Polyline externalBorder = new Polyline();
+        externalBorder.getPoints().addAll(elementsCoordinates.get(index));
+        Polyline internalBorder = transformPolyline(externalBorder);
+        border.getPoints().addAll(externalBorder.getPoints());
+        border.getPoints().addAll(internalBorder.getPoints());
+        border.setFill(Color.GREY);
         return border;
     }
 }
