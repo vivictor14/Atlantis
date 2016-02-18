@@ -6,6 +6,7 @@ import Enumerations.MenuTypes;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import org.controlsfx.dialog.ExceptionDialog;
 import java.util.ArrayList;
 
@@ -22,17 +23,17 @@ public class Menu {
     MenuTypes type;
     ImageView imageView;
     ArrayList<Button> buttons;
-    Group group;
+    Pane pane;
 
     // Constructors
 
     public Menu(ArrayList<ButtonTypes> buttonsToCreate, MenuTypes type, Game game) {
         this.type = type;
-        group = new Group();
+        pane = new Pane();
         buttons = new ArrayList<>();
         String path = IMAGE_PATH + type.toString() + MENU;
         imageView = new ImageView(new Image(path));
-        group.getChildren().add(imageView);
+        pane.getChildren().add(imageView);
         if(imageView.getImage().isError()) {
             ExceptionDialog exceptionDialog = new ExceptionDialog(new Exception("Le fichier " + path + " est manquant."));
             exceptionDialog.setHeaderText("Un fichier est manquant");
@@ -43,7 +44,7 @@ public class Menu {
     }
 
     // Getters and setters
-    public Group getGroup() { return group; }
+    public Pane getPane() { return pane; }
 
     // Methods
 
@@ -70,7 +71,7 @@ public class Menu {
         for(ButtonTypes buttonToCreate : buttonsToCreate) {
             Button button = new Button(x + i * MAIN_BUTTON_X_SPACING, y + i * MAIN_BUTTON_Y_SPACING, type.toString(), buttonToCreate, game);
             buttons.add(button);
-            group.getChildren().add(button.imageView);
+            pane.getChildren().add(button.imageView);
             i++;
         }
     }

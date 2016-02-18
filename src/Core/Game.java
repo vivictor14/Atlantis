@@ -6,6 +6,7 @@ import GameInterface.Menu;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -34,11 +35,13 @@ public class Game implements java.io.Serializable {
     // Constructors
 
     public Game(Stage primaryStage) {
-        initRoot();
-        initScene();
+        double initialWidth = WINDOWED_WINDOW_WIDTH;
+        double initialHeight = WINDOWED_WINDOW_HEIGHT;
+        initRoot(initialWidth, initialHeight);
+        initScene(initialWidth, initialHeight);
         initPrimaryStage(primaryStage);
         initMainMenu();
-        show(mainMenu.getGroup());
+        show(mainMenu.getPane());
     }
 
     // Methods
@@ -46,20 +49,20 @@ public class Game implements java.io.Serializable {
     /**
      * Initialize the root group
      */
-    private void initRoot() {
-        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    private void initRoot(double initialWidth, double initialHeight) {
+        //Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         root = new Group();
-        root.setScaleX(screenBounds.getWidth() / WINDOW_WIDTH);
-        root.setScaleY(screenBounds.getHeight() / WINDOW_HEIGHT);
-        root.setTranslateX((screenBounds.getWidth() - WINDOW_WIDTH) / 2);
-        root.setTranslateY((screenBounds.getHeight() - WINDOW_HEIGHT) / 2);
+        root.setScaleX(initialWidth / WINDOW_WIDTH);
+        root.setScaleY(initialHeight / WINDOW_HEIGHT);
+        root.setTranslateX((initialWidth - WINDOW_WIDTH) / 2);
+        root.setTranslateY((initialHeight - WINDOW_HEIGHT) / 2);
     }
 
     /**
      * Initialize the scene
      */
-    private void initScene() {
-        scene = new Scene(root, WINDOWED_WINDOW_WIDTH, WINDOWED_WINDOW_HEIGHT);
+    private void initScene(double initialWidth, double initialHeight) {
+        scene = new Scene(root, initialWidth, initialHeight);
         scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> {
             root.setScaleX((double) newSceneWidth / WINDOW_WIDTH);
             root.setTranslateX(((double)newSceneWidth - WINDOW_WIDTH) / 2);
@@ -76,7 +79,7 @@ public class Game implements java.io.Serializable {
     private void initPrimaryStage(Stage primaryStage) {
         primaryStage.setTitle(GAME_NAME);
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
@@ -97,10 +100,10 @@ public class Game implements java.io.Serializable {
 
     /**
      * Show the desired group
-     * @param group The group to show
+     * @param pane The pane to show
      */
-    public void show(Group group) {
-        root.getChildren().add(group);
+    public void show(Pane pane) {
+        root.getChildren().add(pane);
     }
 
     /**
@@ -109,7 +112,7 @@ public class Game implements java.io.Serializable {
     public void newGame() {
         Test test = new Test();
         root.getChildren().clear();
-        show(test.group);
+        show(test.pane);
     }
 
     /**

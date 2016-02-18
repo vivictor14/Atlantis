@@ -3,11 +3,17 @@ package Environment;
 import Enumerations.TerrainTypes;
 import com.sun.istack.internal.Nullable;
 import javafx.scene.Group;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
+import org.controlsfx.dialog.ExceptionDialog;
+
 import java.util.ArrayList;
 
 import static Constants.Display.*;
@@ -22,7 +28,7 @@ public class Foreground {
     // Fields
 
     ArrayList<Double[]> elementsCoordinates;
-    transient Group group;
+    transient Pane pane;
 
     // Constructors
 
@@ -49,24 +55,29 @@ public class Foreground {
         }
         elementsCoordinates.add(generateForegroundElement(peakHeight, flatness, length));
 
-        generateGroup();
+        generatePane();
     }
 
     // Methods
 
-    public Group getGroup() { return group; }
+    public Pane getPane() { return pane; }
 
-    public void generateGroup() {
-        group = new Group();
+    public void generatePane() {
+        pane = new Pane();
+        ImageView imageView2 = new ImageView(IMAGE_PATH + "Main" + MENU);
+        pane.getChildren().add(imageView2);
         ArrayList<Polygon> polygons = new ArrayList<>();
         elementsCoordinates.stream().forEach(element -> polygons.add(generatePolygon(element)));
         mergePolygons(polygons);
         int index = 0;
         for(Polygon element : polygons) {
-            group.getChildren().addAll(element, generateBorder(index));
+            pane.getChildren().addAll(element, generateBorder(index));
             index++;
         }
-        //polygons.stream().forEach(element -> group.getChildren().addAll(element, generateBorder(element)));
+
+        ImageView imageView = new ImageView(IMAGE_PATH + "MainSave" + BUTTON_SLEEP);
+        pane.getChildren().add(imageView);
+        pane.setMaxSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
 
@@ -88,7 +99,7 @@ public class Foreground {
             double height = peakHeight / rand1 * Math.sin(x / flatness * rand1 + rand1);
             height += peakHeight / rand2 * Math.sin(x / flatness * rand2 + rand2);
             height += peakHeight / rand3 * Math.sin(x / flatness * rand3 + rand3);
-            height += offset;
+            height = offset - height;
             elementCoordinates[index] = x;
             elementCoordinates[index + 1] = height;
             index += 2;
@@ -136,7 +147,7 @@ public class Foreground {
         Polygon element = new Polygon();
         element.getPoints().addAll(externalBorder.getPoints());
         element.getPoints().addAll(
-                WINDOW_WIDTH, WINDOW_HEIGHT,
+                elementCoordinates[elementCoordinates.length - 2], WINDOW_HEIGHT,
                 0.0, WINDOW_HEIGHT
         );
         element.setFill(new ImagePattern(new Image(IMAGE_PATH + "Marbre.png"), 0.0, 0.0, 64.0, 64.0, false));

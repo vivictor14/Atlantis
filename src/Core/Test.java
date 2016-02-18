@@ -1,10 +1,13 @@
 package Core;
 
 import Enumerations.TerrainTypes;
+import Environment.Background;
 import Environment.Foreground;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
@@ -19,11 +22,14 @@ import static Constants.Display.*;
  */
 public class Test {
 
-    Group group;
+    Pane pane;
 
     public Test() {
-        group = new Group();
+        pane = new Pane();
         Foreground foreground = new Foreground(null, TerrainTypes.Natural);
-        group.getChildren().add(foreground.getGroup());
+        String path = IMAGE_PATH + "Main" + MENU;
+        //ImageView background = new ImageView(new Image(path));
+        //group.getChildren().addAll(background, foreground.getGroup());
+        pane.getChildren().add(foreground.getPane());
     }
 }
