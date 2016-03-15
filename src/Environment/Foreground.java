@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
 import org.controlsfx.dialog.ExceptionDialog;
 
 import java.util.ArrayList;
@@ -64,8 +65,8 @@ public class Foreground {
 
     public void generatePane() {
         pane = new Pane();
-        ImageView imageView2 = new ImageView(IMAGE_PATH + "Main" + MENU);
-        pane.getChildren().add(imageView2);
+        /*ImageView imageView2 = new ImageView(IMAGE_PATH + "Main" + MENU);
+        pane.getChildren().add(imageView2);*/
         ArrayList<Polygon> polygons = new ArrayList<>();
         elementsCoordinates.stream().forEach(element -> polygons.add(generatePolygon(element)));
         mergePolygons(polygons);
@@ -74,9 +75,6 @@ public class Foreground {
             pane.getChildren().addAll(element, generateBorder(index));
             index++;
         }
-
-        ImageView imageView = new ImageView(IMAGE_PATH + "MainSave" + BUTTON_SLEEP);
-        pane.getChildren().add(imageView);
         pane.setMaxSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
